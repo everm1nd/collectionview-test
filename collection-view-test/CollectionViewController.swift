@@ -102,7 +102,7 @@ class CollectionViewController: UICollectionViewController {
         options.deliveryMode = .HighQualityFormat
         options.resizeMode = .Exact
         
-        PHImageManager.defaultManager().requestImageForAsset(
+        imageManager.requestImageForAsset(
             asset,
             targetSize: self.imageSize,
             contentMode: .AspectFill,
