@@ -14,9 +14,7 @@ private let reuseIdentifier = "Cell"
 class CollectionViewController: UICollectionViewController {
     
     class Moment {
-        let imageSize = CGSize(width: 150, height: 150)
-        
-        var photos = [UIImage]()
+        var assets = [PHAsset]()
         var collection: PHAssetCollection?
         
         init(collection: PHAssetCollection) {
@@ -24,37 +22,17 @@ class CollectionViewController: UICollectionViewController {
             
             let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: nil)
             assets.enumerateObjectsUsingBlock({ (asset, _, _) in
-                self.photos.append(self.fetchImage(asset as! PHAsset)!)
+                self.assets.append(asset as! PHAsset)
             })
-        }
-        
-        
-        private func fetchImage(asset: PHAsset) -> UIImage? {
-            let options = PHImageRequestOptions()
-            options.synchronous = true
-            options.deliveryMode = .HighQualityFormat
-            options.resizeMode = .Exact
-            options.synchronous = true
-            
-            var result: UIImage?
-            PHImageManager.defaultManager().requestImageForAsset(
-                asset,
-                targetSize: self.imageSize,
-                contentMode: .AspectFill,
-                options: options,
-                resultHandler: {
-                    image, info in
-                        debugPrint(image)
-                        result = image
-                }
-            )
-            return result
         }
     }
     
     var moments = [Moment]()
+    var imageManager: PHCachingImageManager!
     
-    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    let imageSize = CGSize(width: 150, height: 150)
+    
+//    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,16 +44,21 @@ class CollectionViewController: UICollectionViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
+        self.imageManager = PHCachingImageManager()
+        
         collectionView?.allowsMultipleSelection = true
 
         warmupImages()
-        debugPrint(moments.count)
-        debugPrint(moments[0].photos.count)
     }
     
-    func photoForIndexPath(indexPath: NSIndexPath) -> UIImage {
+//    func photoForIndexPath(indexPath: NSIndexPath) -> UIImage {
+//        debugPrint(indexPath)
+//        return moments[indexPath.section].photos[indexPath.row]
+//    }
+    
+    func assetForIndexPath(indexPath: NSIndexPath) -> PHAsset {
         debugPrint(indexPath)
-        return moments[indexPath.section].photos[indexPath.row]
+        return moments[indexPath.section].assets[indexPath.row]
     }
     
     func warmupImages() -> Void {
@@ -107,14 +90,28 @@ class CollectionViewController: UICollectionViewController {
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moments[section].photos.count
+        return moments[section].assets.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CollectionViewCell
         
-        let photo = photoForIndexPath(indexPath)
-        cell.imageView.image = photo
+        let asset = assetForIndexPath(indexPath)
+        
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .HighQualityFormat
+        options.resizeMode = .Exact
+        
+        PHImageManager.defaultManager().requestImageForAsset(
+            asset,
+            targetSize: self.imageSize,
+            contentMode: .AspectFill,
+            options: options,
+            resultHandler: {
+                image, info in
+                cell.imageView.image = image
+            }
+        )
     
         return cell
     }
