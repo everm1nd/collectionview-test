@@ -17,15 +17,15 @@ class CollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.layer.borderColor = UIColor.redColor().CGColor
+        self.layer.borderColor = UIColor.red.cgColor
     }
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         get {
-            return super.selected
+            return super.isSelected
         }
         set(selected) {
-            super.selected = selected
+            super.isSelected = selected
             self.layer.borderWidth = CGFloat( selected ? borderWidth : 0 )
         }
     }

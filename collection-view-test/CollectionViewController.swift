@@ -20,9 +20,9 @@ class CollectionViewController: UICollectionViewController {
         init(collection: PHAssetCollection) {
             self.collection = collection
             
-            let assets = PHAsset.fetchAssetsInAssetCollection(collection, options: nil)
-            assets.enumerateObjectsUsingBlock({ (asset, _, _) in
-                self.assets.append(asset as! PHAsset)
+            let assets = PHAsset.fetchAssets(in: collection, options: nil)
+            assets.enumerateObjects({ (asset, _, _) in
+                self.assets.append(asset )
             })
         }
     }
@@ -56,7 +56,7 @@ class CollectionViewController: UICollectionViewController {
 //        return moments[indexPath.section].photos[indexPath.row]
 //    }
     
-    func assetForIndexPath(indexPath: NSIndexPath) -> PHAsset {
+    func assetForIndexPath(_ indexPath: IndexPath) -> PHAsset {
         debugPrint(indexPath)
         return moments[indexPath.section].assets[indexPath.row]
     }
@@ -65,9 +65,9 @@ class CollectionViewController: UICollectionViewController {
         moments = [Moment]() // reset an array.
                                  // TODO: better use deinitialize, right?
         
-        let collections = PHAssetCollection.fetchMomentsWithOptions(nil)
-        collections.enumerateObjectsUsingBlock({ collection, momentIndex, _ in
-            self.moments.append(Moment(collection: collection as! PHAssetCollection))
+        let collections = PHAssetCollection.fetchMoments(with: nil)
+        collections.enumerateObjects({ collection, momentIndex, _ in
+            self.moments.append(Moment(collection: collection ))
         })
         
     }
@@ -84,28 +84,28 @@ class CollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return moments.count
     }
 
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return moments[section].assets.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         
         let asset = assetForIndexPath(indexPath)
         
         let options = PHImageRequestOptions()
-        options.deliveryMode = .HighQualityFormat
-        options.resizeMode = .Exact
+        options.deliveryMode = .highQualityFormat
+        options.resizeMode = .exact
         
-        imageManager.requestImageForAsset(
-            asset,
+        imageManager.requestImage(
+            for: asset,
             targetSize: self.imageSize,
-            contentMode: .AspectFill,
+            contentMode: .aspectFill,
             options: options,
             resultHandler: {
                 image, info in
@@ -137,18 +137,18 @@ class CollectionViewController: UICollectionViewController {
 //        return CGSize(width: 100, height: 100)
 //    }
     
-    override func collectionView(collectionView: UICollectionView,
+    override func collectionView(_ collectionView: UICollectionView,
                                  viewForSupplementaryElementOfKind kind: String,
-                                                                   atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+                                                                   at indexPath: IndexPath) -> UICollectionReusableView {
         //1
         switch kind {
         //2
         case UICollectionElementKindSectionHeader:
             //3
             let headerView =
-                collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                       withReuseIdentifier: "CollectionHeaderView",
-                                                                      forIndexPath: indexPath)
+                                                                      for: indexPath)
                     as! CollectionHeaderView
 //            headerView.label.text = moments[indexPath.section].collection!.localizedTitle
             headerView.update(moments[indexPath.section].collection!)

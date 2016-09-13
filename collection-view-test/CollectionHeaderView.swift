@@ -15,20 +15,20 @@ class CollectionHeaderView: UICollectionReusableView {
     
     var collection: PHAssetCollection!
     
-    func update(collection: PHAssetCollection) -> UICollectionReusableView {
+    func update(_ collection: PHAssetCollection) -> UICollectionReusableView {
         self.collection = collection
         self.label.text = titleFromCollection(collection)
         return self
     }
     
-    private func titleFromCollection(collection: PHAssetCollection) -> String {
+    fileprivate func titleFromCollection(_ collection: PHAssetCollection) -> String {
         // TODO: can be possibly extracted to utils module
-        func stringFromDate(startDate: NSDate, toDate: NSDate) -> String {
-            let formatter = NSDateIntervalFormatter()
-            formatter.dateStyle = NSDateIntervalFormatterStyle.MediumStyle
-            formatter.timeStyle = NSDateIntervalFormatterStyle.NoStyle
+        func stringFromDate(_ startDate: Date, toDate: Date) -> String {
+            let formatter = DateIntervalFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
             
-            return formatter.stringFromDate(startDate, toDate: toDate)
+            return formatter.string(from: startDate, to: toDate)
         }
         
         if let text = collection.localizedTitle {
@@ -38,7 +38,7 @@ class CollectionHeaderView: UICollectionReusableView {
         }
     }
     
-    @IBAction func selectMoment(sender: AnyObject) {
+    @IBAction func selectMoment(_ sender: AnyObject) {
         debugPrint("moment selected:", self.collection)
     }
 }
