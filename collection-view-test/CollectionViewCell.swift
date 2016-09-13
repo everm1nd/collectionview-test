@@ -21,12 +21,8 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     override var isSelected: Bool {
-        get {
-            return super.isSelected
-        }
-        set(selected) {
-            super.isSelected = selected
-            self.layer.borderWidth = CGFloat( selected ? borderWidth : 0 )
+        didSet {
+            self.layer.borderWidth = CGFloat( isSelected ? borderWidth : 0 )
         }
     }
     

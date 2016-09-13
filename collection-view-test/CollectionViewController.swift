@@ -32,6 +32,8 @@ class CollectionViewController: UICollectionViewController {
     
     let imageSize = CGSize(width: 150, height: 150)
     
+    private var selectedAssets = NSMutableSet()
+    
 //    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
 
     override func viewDidLoad() {
@@ -157,6 +159,20 @@ class CollectionViewController: UICollectionViewController {
             //4
             assert(false, "Unexpected element kind")
         }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let asset = assetForIndexPath(indexPath)
+        selectedAssets.add(asset)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let asset = assetForIndexPath(indexPath)
+        selectedAssets.remove(asset)
+    }
+    
+    @IBAction func renderButtonClicked(_ sender: AnyObject) {
+        debugPrint(selectedAssets)
     }
 
 }
