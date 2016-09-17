@@ -20,8 +20,8 @@ class CollectionViewController: UICollectionViewController {
         init(collection: PHAssetCollection) {
             self.collection = collection
             
-            let assets = PHAsset.fetchAssets(in: collection, options: nil)
-            assets.enumerateObjects({ (asset, _, _) in
+            let fetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+            fetchResult.enumerateObjects({ (asset, _, _) in
                 self.assets.append(asset )
             })
         }
@@ -32,7 +32,7 @@ class CollectionViewController: UICollectionViewController {
     
     let imageSize = CGSize(width: 150, height: 150)
     
-    private var selectedAssets = NSMutableSet()
+    var storage: AssetsStorage!
     
 //    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
 
@@ -47,6 +47,7 @@ class CollectionViewController: UICollectionViewController {
         layout.minimumInteritemSpacing = 0
         
         self.imageManager = PHCachingImageManager()
+        self.storage = AssetsStorage.sharedInstance
         
         collectionView?.allowsMultipleSelection = true
 
@@ -89,10 +90,13 @@ class CollectionViewController: UICollectionViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return moments.count
     }
-
+    
+    func numberOfItemsIn(section: Int) -> Int {
+        return moments[section].assets.count
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return moments[section].assets.count
+        return numberOfItemsIn(section: section)
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -152,8 +156,9 @@ class CollectionViewController: UICollectionViewController {
                                                                       withReuseIdentifier: "CollectionHeaderView",
                                                                       for: indexPath)
                     as! CollectionHeaderView
-//            headerView.label.text = moments[indexPath.section].collection!.localizedTitle
-            headerView.update(moments[indexPath.section].collection!)
+            // headerView.label.text = moments[indexPath.section].collection!.localizedTitle
+            headerView.collection = moments[indexPath.section].collection
+            headerView.section = indexPath.section
             return headerView
         default:
             //4
@@ -162,17 +167,63 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addAssetWith(indexPath: indexPath)
+    }
+    
+    private func addAssetWith(indexPath: IndexPath) {
         let asset = assetForIndexPath(indexPath)
-        selectedAssets.add(asset)
+        storage.assets.add(asset)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        removeAssetWith(indexPath: indexPath)
+    }
+    
+    func removeAssetWith(indexPath: IndexPath) {
         let asset = assetForIndexPath(indexPath)
-        selectedAssets.remove(asset)
+        storage.assets.remove(asset)
     }
     
     @IBAction func renderButtonClicked(_ sender: AnyObject) {
-        debugPrint(selectedAssets)
+        debugPrint(storage.assets)
+    }
+    
+    @IBAction func selectMomentButtonClicked(_ sender: UIButton) {
+        let section = sender.tag
+        let collection = moments[section].collection
+        let fetchResult = PHAsset.fetchAssets(in: collection!, options: nil)
+        fetchResult.enumerateObjects({ (asset, _, _) in
+            self.storage.assets.add(asset)
+        })
+        selectCellsInSection(section: section)
+    }
+    
+    func selectCellsInSection(section: Int) {
+        let cells = cellsIn(section: section)
+        let allSelectedFlag = allSelected(cells: cells)
+        
+        for (row, _) in cells.enumerated() {
+            let indexPath = IndexPath(row: row, section: section)
+            if allSelectedFlag {
+                removeAssetWith(indexPath: indexPath)
+                collectionView?.deselectItem(at: indexPath, animated: true)
+            } else {
+                addAssetWith(indexPath: indexPath)
+                collectionView?.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
+            }
+        }
+    }
+    
+    func cellsIn(section: Int) -> [UICollectionViewCell] {
+        return (0..<numberOfItemsIn(section: section)).map {
+            collectionView?.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: IndexPath(row: $0, section: section)) as! CollectionViewCell
+        }
+    }
+    
+    func allSelected(cells: [UICollectionViewCell]) -> Bool {
+        return !cells.map { (cell: UICollectionViewCell) -> Bool in
+            return cell.isSelected
+        }.contains(false)
     }
 
 }

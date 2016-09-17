@@ -12,13 +12,22 @@ import Photos
 class CollectionHeaderView: UICollectionReusableView {
         
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var selectButton: UIButton!
     
-    var collection: PHAssetCollection!
+    var collection: PHAssetCollection! {
+        didSet {
+            self.label.text = titleFromCollection(collection)
+        }
+    }
     
-    func update(_ collection: PHAssetCollection) -> UICollectionReusableView {
-        self.collection = collection
-        self.label.text = titleFromCollection(collection)
-        return self
+    var section: Int! {
+        didSet {
+            self.selectButton.tag = section
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     fileprivate func titleFromCollection(_ collection: PHAssetCollection) -> String {
@@ -38,7 +47,4 @@ class CollectionHeaderView: UICollectionReusableView {
         }
     }
     
-    @IBAction func selectMoment(_ sender: AnyObject) {
-        debugPrint("moment selected:", self.collection)
-    }
 }

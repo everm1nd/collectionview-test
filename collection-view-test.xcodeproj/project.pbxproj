@@ -16,6 +16,7 @@
 		A7CC48CA1D7C61EF001A749F /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC48C91D7C61EF001A749F /* CollectionViewController.swift */; };
 		A7CC48CC1D7C6EFD001A749F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC48CB1D7C6EFD001A749F /* CollectionViewCell.swift */; };
 		A7CC48CE1D7C9973001A749F /* CollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC48CD1D7C9973001A749F /* CollectionHeaderView.swift */; };
+		A7E561451D89F78000BCA151 /* AssetsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E561441D89F78000BCA151 /* AssetsStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		A7CC48C91D7C61EF001A749F /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		A7CC48CB1D7C6EFD001A749F /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		A7CC48CD1D7C9973001A749F /* CollectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionHeaderView.swift; sourceTree = "<group>"; };
+		A7E561441D89F78000BCA151 /* AssetsStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				A7CC489B1D7C6094001A749F /* AppDelegate.swift */,
 				A7CC489F1D7C6094001A749F /* Main.storyboard */,
 				A7CC48CD1D7C9973001A749F /* CollectionHeaderView.swift */,
+				A7E561441D89F78000BCA151 /* AssetsStorage.swift */,
 				A7CC48CB1D7C6EFD001A749F /* CollectionViewCell.swift */,
 				A7CC48C91D7C61EF001A749F /* CollectionViewController.swift */,
 				A7CC48A21D7C6094001A749F /* Assets.xcassets */,
@@ -267,6 +270,7 @@
 			files = (
 				A7CC48CA1D7C61EF001A749F /* CollectionViewController.swift in Sources */,
 				A7CC48CE1D7C9973001A749F /* CollectionHeaderView.swift in Sources */,
+				A7E561451D89F78000BCA151 /* AssetsStorage.swift in Sources */,
 				A7CC489C1D7C6094001A749F /* AppDelegate.swift in Sources */,
 				A7CC48CC1D7C6EFD001A749F /* CollectionViewCell.swift in Sources */,
 			);

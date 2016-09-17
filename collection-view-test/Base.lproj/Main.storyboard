@@ -48,24 +48,23 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moment Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wue-jM-NGf">
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ot-O4-QAV">
-                                    <frame key="frameInset" minX="530" minY="34" width="49" height="33"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ot-O4-QAV">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="Select"/>
                                     <connections>
-                                        <action selector="selectMoment:" destination="oht-rX-zD1" eventType="touchUpInside" id="6ZP-39-4ym"/>
+                                        <action selector="selectMomentButtonClicked:" destination="D20-XD-Icl" eventType="touchUpInside" id="Sk6-7P-OoN"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="trailingMargin" secondItem="3Ot-O4-QAV" secondAttribute="trailing" constant="13" id="OZ1-Rb-HrA"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="3Ot-O4-QAV" secondAttribute="trailing" constant="26" id="OZ1-Rb-HrA"/>
                                 <constraint firstItem="wue-jM-NGf" firstAttribute="centerY" secondItem="oht-rX-zD1" secondAttribute="centerY" id="Ph5-Mz-3Fx"/>
                                 <constraint firstItem="3Ot-O4-QAV" firstAttribute="baseline" secondItem="wue-jM-NGf" secondAttribute="baseline" id="SMp-QM-zQi"/>
-                                <constraint firstItem="wue-jM-NGf" firstAttribute="leading" secondItem="oht-rX-zD1" secondAttribute="leadingMargin" constant="13" id="VMu-KS-qLM"/>
+                                <constraint firstItem="wue-jM-NGf" firstAttribute="leading" secondItem="oht-rX-zD1" secondAttribute="leadingMargin" constant="23" id="VMu-KS-qLM"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="wue-jM-NGf" secondAttribute="bottom" constant="7" id="slL-8W-m70"/>
                             </constraints>
                             <variation key="default">
@@ -75,6 +74,7 @@
                             </variation>
                             <connections>
                                 <outlet property="label" destination="wue-jM-NGf" id="mx0-CP-ibg"/>
+                                <outlet property="selectButton" destination="3Ot-O4-QAV" id="TGs-51-KvK"/>
                             </connections>
                         </collectionReusableView>
                         <connections>
