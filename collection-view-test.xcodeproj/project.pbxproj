@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A722B2C01D8D745F002784F3 /* RenderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722B2BF1D8D745F002784F3 /* RenderCollectionViewController.swift */; };
+		A722B2C41D8D7536002784F3 /* RenderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A722B2C31D8D7536002784F3 /* RenderCollectionViewCell.swift */; };
 		A7CC489C1D7C6094001A749F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CC489B1D7C6094001A749F /* AppDelegate.swift */; };
 		A7CC48A11D7C6094001A749F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7CC489F1D7C6094001A749F /* Main.storyboard */; };
 		A7CC48A31D7C6094001A749F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7CC48A21D7C6094001A749F /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A722B2BF1D8D745F002784F3 /* RenderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderCollectionViewController.swift; sourceTree = "<group>"; };
+		A722B2C31D8D7536002784F3 /* RenderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderCollectionViewCell.swift; path = ../RenderCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7CC48981D7C6094001A749F /* collection-view-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "collection-view-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7CC489B1D7C6094001A749F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7CC48A01D7C6094001A749F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,6 +84,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A722B2C71D8D789C002784F3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A722B2C81D8D78B1002784F3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A7E561441D89F78000BCA151 /* AssetsStorage.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		A75B7B241D8DDFFF00ECECA3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A722B2BF1D8D745F002784F3 /* RenderCollectionViewController.swift */,
+				A7CC48C91D7C61EF001A749F /* CollectionViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A75B7B251D8DE00600ECECA3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A7CC48CD1D7C9973001A749F /* CollectionHeaderView.swift */,
+				A722B2C31D8D7536002784F3 /* RenderCollectionViewCell.swift */,
+				A7CC48CB1D7C6EFD001A749F /* CollectionViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A7CC488F1D7C6094001A749F = {
 			isa = PBXGroup;
 			children = (
@@ -103,12 +141,12 @@
 		A7CC489A1D7C6094001A749F /* collection-view-test */ = {
 			isa = PBXGroup;
 			children = (
+				A75B7B251D8DE00600ECECA3 /* Views */,
+				A75B7B241D8DDFFF00ECECA3 /* Controllers */,
+				A722B2C81D8D78B1002784F3 /* Services */,
+				A722B2C71D8D789C002784F3 /* Models */,
 				A7CC489B1D7C6094001A749F /* AppDelegate.swift */,
 				A7CC489F1D7C6094001A749F /* Main.storyboard */,
-				A7CC48CD1D7C9973001A749F /* CollectionHeaderView.swift */,
-				A7E561441D89F78000BCA151 /* AssetsStorage.swift */,
-				A7CC48CB1D7C6EFD001A749F /* CollectionViewCell.swift */,
-				A7CC48C91D7C61EF001A749F /* CollectionViewController.swift */,
 				A7CC48A21D7C6094001A749F /* Assets.xcassets */,
 				A7CC48A41D7C6094001A749F /* LaunchScreen.storyboard */,
 				A7CC48A71D7C6094001A749F /* Info.plist */,
@@ -202,15 +240,18 @@
 				TargetAttributes = {
 					A7CC48971D7C6094001A749F = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = YM8448YC7Q;
 						LastSwiftMigration = 0800;
 					};
 					A7CC48AB1D7C6094001A749F = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = YM8448YC7Q;
 						LastSwiftMigration = 0800;
 						TestTargetID = A7CC48971D7C6094001A749F;
 					};
 					A7CC48B61D7C6094001A749F = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = YM8448YC7Q;
 						LastSwiftMigration = 0800;
 						TestTargetID = A7CC48971D7C6094001A749F;
 					};
@@ -271,7 +312,9 @@
 				A7CC48CA1D7C61EF001A749F /* CollectionViewController.swift in Sources */,
 				A7CC48CE1D7C9973001A749F /* CollectionHeaderView.swift in Sources */,
 				A7E561451D89F78000BCA151 /* AssetsStorage.swift in Sources */,
+				A722B2C41D8D7536002784F3 /* RenderCollectionViewCell.swift in Sources */,
 				A7CC489C1D7C6094001A749F /* AppDelegate.swift in Sources */,
+				A722B2C01D8D745F002784F3 /* RenderCollectionViewController.swift in Sources */,
 				A7CC48CC1D7C6EFD001A749F /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +393,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = YM8448YC7Q;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -397,6 +441,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = YM8448YC7Q;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

@@ -31,8 +31,9 @@ class CollectionViewController: UICollectionViewController {
     var imageManager: PHCachingImageManager!
     
     let imageSize = CGSize(width: 150, height: 150)
+    let CellsPerRow = CGFloat(10)
     
-    var storage: AssetsStorage!
+    let storage = AssetsStorage.sharedInstance
     
 //    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
 
@@ -40,14 +41,13 @@ class CollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         let layout = collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        let side = self.view.frame.width / 10
+        let side = self.view.frame.width / CellsPerRow
 //        layout.itemSize = self.view.frame.size
         layout.itemSize = CGSize(width: side, height: side)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
         self.imageManager = PHCachingImageManager()
-        self.storage = AssetsStorage.sharedInstance
         
         collectionView?.allowsMultipleSelection = true
 
@@ -60,7 +60,6 @@ class CollectionViewController: UICollectionViewController {
 //    }
     
     func assetForIndexPath(_ indexPath: IndexPath) -> PHAsset {
-        debugPrint(indexPath)
         return moments[indexPath.section].assets[indexPath.row]
     }
     
@@ -172,7 +171,7 @@ class CollectionViewController: UICollectionViewController {
     
     private func addAssetWith(indexPath: IndexPath) {
         let asset = assetForIndexPath(indexPath)
-        storage.assets.add(asset)
+        storage.add(asset)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -181,24 +180,11 @@ class CollectionViewController: UICollectionViewController {
     
     func removeAssetWith(indexPath: IndexPath) {
         let asset = assetForIndexPath(indexPath)
-        storage.assets.remove(asset)
-    }
-    
-    @IBAction func renderButtonClicked(_ sender: AnyObject) {
-        debugPrint(storage.assets)
+        storage.remove(asset)
     }
     
     @IBAction func selectMomentButtonClicked(_ sender: UIButton) {
         let section = sender.tag
-        let collection = moments[section].collection
-        let fetchResult = PHAsset.fetchAssets(in: collection!, options: nil)
-        fetchResult.enumerateObjects({ (asset, _, _) in
-            self.storage.assets.add(asset)
-        })
-        selectCellsInSection(section: section)
-    }
-    
-    func selectCellsInSection(section: Int) {
         let cells = cellsIn(section: section)
         let allSelectedFlag = allSelected(cells: cells)
         
